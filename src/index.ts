@@ -27,6 +27,7 @@ AppDataSource.initialize().then(async () => {
     
     app.listen(port, ()=>{
         console.log(`Servidor rodando em http://localhost:${port}`);
+        console.log(`Servidor rodando em http://localhost:${port}`);
     })
 }).catch(error => console.log(error));
 

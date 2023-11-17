@@ -356,6 +356,49 @@ export class ConexaoController {
         });
     };
 
+    //WebHook
+
+    postwebHook (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+        const apiUrl = 'localhost:8000/webhook/set/aaaaaa';
+    
+        const apiConfig = {
+            url: "localhost:8000",
+    webhook_by_events: false,
+    events: [
+        // "APPLICATION_STARTUP",
+        "QRCODE_UPDATED",
+        // "MESSAGES_SET",
+        "MESSAGES_UPSERT",
+        "MESSAGES_UPDATE",
+        "MESSAGES_DELETE",
+        "SEND_MESSAGE",
+        // "CONTACTS_SET",
+        // "CONTACTS_UPSERT",
+        // "CONTACTS_UPDATE",
+        // "PRESENCE_UPDATE",
+        // "CHATS_SET",
+        // "CHATS_UPSERT",
+        // "CHATS_UPDATE",
+        // "CHATS_DELETE",
+        // "GROUPS_UPSERT",
+        // "GROUP_UPDATE",
+        // "GROUP_PARTICIPANTS_UPDATE",
+        "CONNECTION_UPDATE",
+        "CALL"
+        // "NEW_JWT_TOKEN",
+        // "TYPEBOT_START",
+        // "TYPEBOT_CHANGE_STATUS",
+    ]    
+        }
+        axios.post(apiUrl, apiConfig, { headers })
+        .then(response => {
+            res.status(201).send(response.data);
+        })
+        .catch(error => {
+            res.status(500).send(error.message);
+        });
+    };
+
 }
 
 export const conexaoRouter = Router();
