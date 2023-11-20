@@ -52,7 +52,7 @@ export class SendMessageController {
                         participant: ""
                     },
                     message: {
-                        conversation: "Texto da mensagem enviado pela API do whatsapp\n\n😉🤣🤩🤝👏👍🙏"
+                        conversation: "oi"
                     }
                 }
             },
@@ -70,7 +70,8 @@ export class SendMessageController {
             res.status(500).send(error.message);
         });
     };
-
+   
+    /*
     postSendMentionText (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
         const apiUrl = urlBase+urlCategoriarequest+'sendText/'+req.params.instance;
 
@@ -107,25 +108,25 @@ export class SendMessageController {
 
         const apiConfig = {
             statusMessage: {
-                type: "text", /* text */
-                content: "Hi, how are you today?", /* text or url */
-                backgroundColor: "#FFFFFF", /* Optional for text only. Accepts any color code. Examples:
-                                                 #FFFFFF = White
-                                                 #0000FF = Blue
-                                                 #008000 = Green
-                                                 #FFFF00 = Yellow
-                                                 #FF0000 = Red
-                                                 #800080 = Purple
-                                                 #808080 = Gray
-                                                 #FFC0CB = Pink */
-                font: 1, /* Optional for text only. Accept the options below:
-                              1 = SERIF
-                              2 = NORICAN_REGULAR
-                              3 = BRYNDAN_WRITE
-                              4 = BEBASNEUE_REGULAR
-                              5 = OSWALD_HEAVY */
-                allContacts: false, /* true to send to all contacts or
-                                       false to send to statusJidList below */ 
+                type: "text",
+                content: "Hi, how are you today?", 
+                backgroundColor: "#FFFFFF", // Optional for text only. Accepts any color code. Examples:
+                                            //     #FFFFFF = White
+                                            //     #0000FF = Blue
+                                            //     #008000 = Green
+                                            //     #FFFF00 = Yellow
+                                            //     #FF0000 = Red
+                                            //     #800080 = Purple
+                                            //     #808080 = Gray
+                                            //     #FFC0CB = Pink 
+                font: 1, // Optional for text only. Accept the options below:
+                            //  1 = SERIF
+                            //  2 = NORICAN_REGULAR
+                            //  3 = BRYNDAN_WRITE
+                            //  4 = BEBASNEUE_REGULAR
+                            //  5 = OSWALD_HEAVY 
+                allContacts: false // true to send to all contacts or
+                                     //  false to send to statusJidList below 
                 statusJidList: [
                     //"{{remoteJid}}@s.whatsapp.net"
                     "5563981133108@s.whatsapp.net"
@@ -147,12 +148,12 @@ export class SendMessageController {
     
         const apiConfig = {
             statusMessage: {
-                    type: "image", /* text */
-                    content: "https://evolution-api.com/files/evolution-api.jpg", /* text or url */
-                    caption: "This is my status/storie image", /* Optional for image or video */
+                    type: "image", // text 
+                    content: "https://evolution-api.com/files/evolution-api.jpg", // text or url 
+                    caption: "This is my status/storie image", // Optional for image or video 
                    
-                    allContacts: false, /* true to send to all contacts or
-                                           false to send to statusJidList below */ 
+                    allContacts: false, // true to send to all contacts or
+                                        //   false to send to statusJidList below  
                     statusJidList: [
                         //"{{remoteJid}}@s.whatsapp.net"
                         "5563981133108@s.whatsapp.net"
@@ -174,11 +175,11 @@ export class SendMessageController {
     
         const apiConfig = {
             statusMessage: {
-                    type: "audio", /* text */
-                    content: "https://evolution-api.com/files/narratedaudio.mp3", /* text or url */
+                    type: "audio", // text 
+                    content: "https://evolution-api.com/files/narratedaudio.mp3", // text or url
                     
-                    allContacts: false, /* true to send to all contacts or
-                                           false to send to statusJidList below */ 
+                    allContacts: false, // true to send to all contacts or
+                                        //   false to send to statusJidList below  
                     statusJidList: [
                         //"{{remoteJid}}@s.whatsapp.net"
                         "5563981133108@s.whatsapp.net"
@@ -219,6 +220,7 @@ export class SendMessageController {
             res.status(500).send(error.message);
         });
     };
+*/
 }
 
 export const messageRouter = Router();

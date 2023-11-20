@@ -26,11 +26,11 @@ conexaoRouter.delete('/deleteInstance/:instance', controllerInstance.deleteInsta
 //Send Message Controller
 conexaoRouter.post('/sendMessageText/:instance', controllerSendMessage.postSendMessageText)
 conexaoRouter.post('/sendMessageReplyQuoteText/:instance', controllerSendMessage.postSendReplyQuoteText)
-conexaoRouter.post('/sendMentionText/:instance', controllerSendMessage.postSendMentionText)
+/*conexaoRouter.post('/sendMentionText/:instance', controllerSendMessage.postSendMentionText)
 conexaoRouter.post('/sendStatusText/:instance', controllerSendMessage.postSendStatusText)
 conexaoRouter.post('/sendStatusIMG/:instance', controllerSendMessage.postSendStatusImg)
 conexaoRouter.post('/sendStatusAudio/:instance', controllerSendMessage.postSendStatusAudio)
-conexaoRouter.post('/postsendMediaURL/:instance', controllerSendMessage.postsendMediaURL)
+conexaoRouter.post('/postsendMediaURL/:instance', controllerSendMessage.postsendMediaURL)*/
 
 //Chat Controller
 conexaoRouter.post('/isWhatsApp/:instance', controllerChat.postIsWhatsApp)
