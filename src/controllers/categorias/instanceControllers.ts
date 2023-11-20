@@ -19,7 +19,7 @@ export class InstanceController {
             qrcode: true,
         };
 
-        const apiUrl = urlBase+urlCategoriarequest+'/create/';
+        const apiUrl = urlBase+urlCategoriarequest+'create';
         
         console.log("Erro")
         axios.post(apiUrl, apiConfig, { headers })

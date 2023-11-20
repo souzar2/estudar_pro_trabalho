@@ -5,7 +5,7 @@ import { headers } from "../common/controller";
 import express = require("express")
 const axios = require('axios');
 
-var urlCategoriarequest = 'messagwebhook/'
+var urlCategoriarequest = 'webhook/'
 
 export class WebhookController {
     //WebHook

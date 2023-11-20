@@ -6,6 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    <button>Listar Instancias</button>
+    <form method="get" action="/conexao/fetchInstances">
+        <input type="submit" value="Lista de Instancias">
+    </form>
+
+    <form id="statusForm" method="get" action="/conexao/connectionStatus/arthur">
+        <input type="submit" value="Status Conexao">
+    </form>
+
+    <script>
+        /*document.getElementById('statusForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+    
+          const nomeInstancia = document.getElementById('instancia').value;
+    
+          //const novaURL = `/conexao/connectionStatus/${nome}`;
+    
+          this.action = novaURL;
+    
+          this.submit();
+        });
+        */
+      </script>
 </body>
 </html>

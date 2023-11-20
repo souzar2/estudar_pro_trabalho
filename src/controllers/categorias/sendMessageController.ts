@@ -12,13 +12,26 @@ export class SendMessageController {
     postSendMessageText (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
         const apiUrl = urlBase+urlCategoriarequest+'sendText/'+req.params.instance;
 
+        let quoted = req.body.respondendo != undefined ?  {
+            key: {
+                remoteJid: "{{remoteJid}}@s.whatsapp.net",
+                fromMe: true,
+                id: "BAE5B4A2BDFEEFE3",
+                participant: ""
+            },
+            message: {
+                conversation: "oi"
+            }
+        } : undefined;
+
         const apiConfig = {
             //number: {{groupJid}}
             number: "5563981133108",
             options: {
                 delay: 1200,
                 presence: "composing",
-                linkPreview: false
+                linkPreview: false,
+                quoted: quoted,
             },
             textMessage: {
                 text: 
