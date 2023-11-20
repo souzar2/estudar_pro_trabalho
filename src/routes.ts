@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import conexaoRouter, { ConexaoController } from './controllers/ConexaoController';
+import conexaoRouter from './controllers/conexaoController';
 
 
 export const router = Router();

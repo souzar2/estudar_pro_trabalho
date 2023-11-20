@@ -21,12 +21,11 @@ AppDataSource.initialize().then(async () => {
     //     res.send('oi, '+req.params.nome)
     // })
 
-    // app.get('/pag', (req, res, nex)=>{
-    //     res.sendFile(path.join(__dirname, '../', 'views', 'users.html'))
-    // })
+    app.get('/connect', (req, res, nex)=>{
+        res.sendFile(path.join(__dirname, '../', 'views', 'connect.html'))
+    })
     
     app.listen(port, ()=>{
-        console.log(`Servidor rodando em http://localhost:${port}`);
         console.log(`Servidor rodando em http://localhost:${port}`);
     })
 }).catch(error => console.log(error));
