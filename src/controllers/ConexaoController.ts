@@ -15,7 +15,7 @@ const controllerChat = new ChatController
 const controllerWebhook = new WebhookController
 
 //Instance Controller
-conexaoRouter.post('/createInstance/:instance', controllerInstance.postCreateInstance)
+conexaoRouter.post('/createInstance', controllerInstance.postCreateInstance)
 conexaoRouter.get('/reconnectInstance/:instance', controllerInstance.getInstanceConnect)
 conexaoRouter.get('/connectionStatus/:instance', controllerInstance.getConnectionStatus)
 conexaoRouter.get('/fetchInstances', controllerInstance.getFetchInstances)

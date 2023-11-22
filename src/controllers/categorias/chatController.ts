@@ -11,7 +11,6 @@ export class ChatController {
 
     postIsWhatsApp (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
         const apiUrl = urlBase+urlCategoriarequest+'whatsappNumbers/'+req.params.instance;
-    
         const apiConfig = {
             numbers: [
                 "55911111111",

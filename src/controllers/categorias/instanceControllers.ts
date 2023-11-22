@@ -6,6 +6,8 @@ import { gerarToken } from "../common/controller";
 import express = require("express")
 const axios = require('axios');
 
+var instanceName = "012345"
+
 //Instance Controller
 var urlCategoriarequest = 'instance/'
 
@@ -14,14 +16,13 @@ export class InstanceController {
         var tk = gerarToken(20)
 
         const apiConfig = {
-            instanceName: req.params.instance,
+            instanceName: instanceName,
             token: tk,
             qrcode: true,
         };
 
         const apiUrl = urlBase+urlCategoriarequest+'create';
         
-        console.log("Erro")
         axios.post(apiUrl, apiConfig, { headers })
         .then(response => {
             res.status(201).send(response.data);

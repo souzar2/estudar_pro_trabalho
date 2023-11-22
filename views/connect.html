@@ -10,23 +10,52 @@
         <input type="submit" value="Lista de Instancias">
     </form>
 
-    <form id="statusForm" method="get" action="/conexao/connectionStatus/arthur">
-        <input type="submit" value="Status Conexao">
+    
+
+    <form class="form" method="post" name="regForm">
+        <div class="row">
+            <div class="form___group">
+                <input class="form___data" id="inst" name="inst"  placeholder="Nome da Instancia" required type="text">
+            </div>
+        </div>
+        <div class="row has-alignCenter">
+            <button class="form__button" type="submit">Criar Instancia</button>
+        </div>
+    </form>
+    
+    <form method="post" action="/conexao/fetchInstances">
+        <input type="text" placeholder="Nome da Instancia">
+        <input type="submit" value="Criar instancia">
     </form>
 
+    <form>
+        <input type="text"  id="valor_busca"/>
+        <input type="submit" value="Status Conexao" onclick="redireciona()"/>
+    </form>
     <script>
-        /*document.getElementById('statusForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-    
-          const nomeInstancia = document.getElementById('instancia').value;
-    
-          //const novaURL = `/conexao/connectionStatus/${nome}`;
-    
-          this.action = novaURL;
-    
-          this.submit();
-        });
-        */
+
+function updateAction(event) {
+        event.preventDefault();
+        var instanciaValue = document.getElementById('inst').value;
+        console.log(instanciaValue)
+        var newUrl = 'http://localhost:3000/conexao/connectionStatus/'+instanciaValue;
+        window.location.href = newUrl
+        
+    }
+
+    function redireciona(){
+    var valor_busca = document.getElementById("inst").value;
+    location.href="http://localhost:3000/conexao/connectionStatus/"+valor_busca;
+    }
+       /*function createinstance(form) {
+        event.preventDefault();
+        const inputInst = form.inst;
+        if (inputInst) {
+            const inst = inputInst.value;
+            const URL = `http://localhost:3000/conexao/createInstance/${inst}`;
+        }
+        }*/
       </script>
+
 </body>
 </html>

@@ -23,10 +23,14 @@ AppDataSource.initialize().then(async () => {
 
     app.get('/connect', (req, res, nex)=>{
         res.sendFile(path.join(__dirname, '../', 'views', 'connect.html'))
+        
     })
     
     app.listen(port, ()=>{
         console.log(`Servidor rodando em http://localhost:${port}`);
     })
+
+
+
 }).catch(error => console.log(error));
 
