@@ -1,0 +1,1 @@
+export function isValid(param: any): boolean { return param !== undefined && param != null; }

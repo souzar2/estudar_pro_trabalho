@@ -1,4 +1,4 @@
-import { NextFunction, Response, Router } from "express";
+import { Response, Router } from "express";
 import { TypedRequestBody, urlBase } from "../common/controller";
 import { headers } from "../common/controller";
 
@@ -9,7 +9,7 @@ var urlCategoriarequest = 'chat/'
 
 export class ChatController {
 
-    postIsWhatsApp (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+    postIsWhatsApp (req: TypedRequestBody<any>, res: Response) {
         const apiUrl = urlBase+urlCategoriarequest+'whatsappNumbers/'+req.params.instance;
         const apiConfig = {
             numbers: [

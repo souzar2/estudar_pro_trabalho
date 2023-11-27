@@ -20,3 +20,10 @@ export function gerarToken(tamanho) {
     }
     return stringAleatoria;
 }
+
+
+export function gerarDelay() {
+    var aleatorio = Math.floor(Math.random() * 2000)
+    console.log(aleatorio)
+    return aleatorio;
+}

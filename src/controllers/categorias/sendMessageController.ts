@@ -1,5 +1,5 @@
-import { NextFunction, Response, Router } from "express";
-import { TypedRequestBody, urlBase } from "../common/controller";
+import { Response, Router } from "express";
+import { TypedRequestBody, gerarDelay, urlBase } from "../common/controller";
 import { headers } from "../common/controller";
 
 import express = require("express")
@@ -9,33 +9,29 @@ var urlCategoriarequest = 'message/'
 
 export class SendMessageController {
     //Send Message Controller
-    postSendMessageText (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+    postSendMessageText (req: TypedRequestBody<any>, res: Response) {
         const apiUrl = urlBase+urlCategoriarequest+'sendText/'+req.params.instance;
 
         let quoted = req.body.respondendo != undefined ?  {
             key: {
-                remoteJid: "{{remoteJid}}@s.whatsapp.net",
+                remoteJid: req.body.number,
                 fromMe: true,
-                id: "BAE5B4A2BDFEEFE3",
-                participant: ""
             },
             message: {
-                conversation: "oi"
+                conversation: req.body.textMessage.text
             }
         } : undefined;
 
         const apiConfig = {
             //number: {{groupJid}}
-            number: "5563981133108",
+            number: req.body.number,
             options: {
-                delay: 1200,
-                presence: "composing",
-                linkPreview: false,
-                quoted: quoted,
+                delay: req.body.options.delay,
+                presence: req.body.options.presence,
+                linkPreview: req.body.options.linkPreview,
             },
             textMessage: {
-                text: 
-                "testando se ta funcionando\n\n😉🤣🤩🤝👏👍🙏"
+                text: req.body.textMessage.text
             }
         };
 
@@ -44,11 +40,11 @@ export class SendMessageController {
             res.status(201).send(response.data);
         })
         .catch(error => {
-            res.status(500).send(error.message);
+            res.status(500).send(error.response.data);
         });
     };
 
-    postSendReplyQuoteText (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+    postSendReplyQuoteText (req: TypedRequestBody<any>, res: Response) {
         const apiUrl = urlBase+urlCategoriarequest+'sendText/'+req.params.instance;
 
         const apiConfig = {
@@ -80,7 +76,7 @@ export class SendMessageController {
             res.status(201).send(response.data);
         })
         .catch(error => {
-            res.status(500).send(error.message);
+            res.status(500).send(error.response.data);
         });
     };
    

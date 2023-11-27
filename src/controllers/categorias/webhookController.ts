@@ -9,7 +9,7 @@ var urlCategoriarequest = 'webhook/'
 
 export class WebhookController {
     //WebHook
-    postSetWebHook (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+    postSetWebHook (req: TypedRequestBody<any>, res: Response) {
 
         
         const apiUrl = urlBase+urlCategoriarequest+'set/'+req.params.instance;
@@ -54,7 +54,7 @@ export class WebhookController {
         });
     };
 
-    newEvent (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+    newEvent (req: TypedRequestBody<any>, res: Response) {
             console.log(req.body)
     };
 
