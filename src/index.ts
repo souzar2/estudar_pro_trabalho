@@ -16,14 +16,13 @@ AppDataSource_vrp.initialize().then(async () => {
         const port = 3000;
         app.use(cors())
         app.use(express.json())
-        //app.use(new LoginController().VerifyToken, router)
+
+        app.use(new LoginController().VerifyToken, router)
         app.use('/login', LoginRouter)
 
         app.get('/connect', (req, res, nex) => {
             res.sendFile(path.join(__dirname, '../', 'views', 'connect.html'))
         })
-
-
 
         app.listen(port, () => {
             console.log(`Servidor rodando em http://localhost:${port}`);

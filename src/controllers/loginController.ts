@@ -9,9 +9,6 @@ import { isValid } from "../service/functionService";
 import { VTPassWordEncoder } from "../passwordEncoder";
 import { Usuario } from "../entityVt/Usuario";
 
-
-
-
 export class LoginController {
     static repository = {
         user: AppDataSource_vrp.getRepository(Usuario),
@@ -23,7 +20,7 @@ export class LoginController {
      * @param next 
      */
     login(req: TypedRequestBody<{ login: string, senha: string }>, res: Response, next: any) {
-
+            console.log(req.body)
         LoginController.repository.user.findOneOrFail({
             where: { nome: ILike(req.body.login) }
         }).then(user => {
@@ -35,7 +32,7 @@ export class LoginController {
                     res.status(401).send('Usuário ou senha não confere!')
                 }
             }).catch(err => res.status(500).send(err.message))
-        })
+        }).catch(err => res.status(500).send(err.message))
     }
 
     /**
