@@ -3,31 +3,26 @@ import express = require("express")
 import cors = require("cors")
 import router from "./routes";
 import 'reflect-metadata'
-import { UsuarioController } from "../controllers/UsuarioController";
 import LoginRouter, { LoginController } from "./controllers/loginController";
 import { AppDataSource_vrp } from "./data-souce-vrp";
-const path = require('path')
+import ClientesRouter from "./controllers/contatoClientesController";
+import bodyParser = require("body-parser");
 
 AppDataSource_vrp.initialize().then(async () => {
     AppDataSource.initialize().then(async () => {
-
-
-        const app = express()
+        const app = express();
         const port = 3000;
-        app.use(cors())
-        app.use(express.json())
+        app.use(cors());
+        app.use(express.json({limit:'50mb'}));
+        app.use('/login', LoginRouter);
+        app.use('/clientes', ClientesRouter);
 
-        app.use(new LoginController().VerifyToken, router)
-        app.use('/login', LoginRouter)
+        app.use(new LoginController().verifyToken, router);
 
-        app.get('/connect', (req, res, nex) => {
-            res.sendFile(path.join(__dirname, '../', 'views', 'connect.html'))
-        })
 
         app.listen(port, () => {
             console.log(`Servidor rodando em http://localhost:${port}`);
         })
-
 
     }).catch(error => console.log(error));
 

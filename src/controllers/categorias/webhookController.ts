@@ -1,6 +1,5 @@
 import { NextFunction, Response, Router } from "express";
-import { TypedRequestBody, urlBase } from "../common/controller";
-import { headers } from "../common/controller";
+import { TypedRequestBody, urlBase, headers } from "../common/controller";
 
 import express = require("express")
 const axios = require('axios');
@@ -8,10 +7,8 @@ const axios = require('axios');
 var urlCategoriarequest = 'webhook/'
 
 export class WebhookController {
-    //WebHook
     postSetWebHook (req: TypedRequestBody<any>, res: Response) {
 
-        
         const apiUrl = urlBase+urlCategoriarequest+'set/'+req.params.instance;
 
         const apiConfig = {
@@ -55,7 +52,7 @@ export class WebhookController {
     };
 
     newEvent (req: TypedRequestBody<any>, res: Response) {
-            console.log(req.body)
+            console.log(req.body.pushName)
     };
 
 }

@@ -28,6 +28,7 @@ export class LoginController {
                 if (pass === user.senha) {
                     const token = jwt.sign({ name: user.nome }, UserTokenSecuritykey, { expiresIn: '8h' })
                     res.status(200).send({ token: token, expiresIn: '8h' });
+                    
                 } else {
                     res.status(401).send('Usuário ou senha não confere!')
                 }
@@ -69,7 +70,7 @@ export class LoginController {
      * @param next 
      * @returns 
      */
-    VerifyToken(req: TypedRequestBody<{ userLogin: string }>, res: Response, next: any) {
+    verifyToken(req: TypedRequestBody<{ userLogin: string }>, res: Response, next: any) {
         var token = req.get('Authorization');
 
         if (!token) return res.status(400).send('Authorization token must be provided!');

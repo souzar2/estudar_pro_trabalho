@@ -23,7 +23,6 @@ export function gerarToken(tamanho) {
 
 
 export function gerarDelay() {
-    var aleatorio = Math.floor(Math.random() * 2000)
-    console.log(aleatorio)
+    var aleatorio = Math.floor(Math.random() * 150000)
     return aleatorio;
 }

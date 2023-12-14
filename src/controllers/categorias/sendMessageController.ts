@@ -1,6 +1,5 @@
-import { Response, Router } from "express";
-import { TypedRequestBody, gerarDelay, urlBase } from "../common/controller";
-import { headers } from "../common/controller";
+import { NextFunction, Response, Router } from "express";
+import { TypedRequestBody, headers,  gerarDelay, urlBase } from "../common/controller";
 
 import express = require("express")
 const axios = require('axios');
@@ -26,7 +25,7 @@ export class SendMessageController {
             //number: {{groupJid}}
             number: req.body.number,
             options: {
-                delay: req.body.options.delay,
+                delay: 1000,
                 presence: req.body.options.presence,
                 linkPreview: req.body.options.linkPreview,
             },
@@ -40,6 +39,43 @@ export class SendMessageController {
             res.status(201).send(response.data);
         })
         .catch(error => {
+            console.log(error)
+            res.status(500).send(error.response.data);
+        });
+    };
+
+    postSendManyMessageText (req: TypedRequestBody<any>, res: Response) {
+        const apiUrl = urlBase+urlCategoriarequest+'sendText/'+req.params.instance;
+
+        let quoted = req.body.respondendo != undefined ?  {
+            key: {
+                remoteJid: req.body.number,
+                fromMe: true,
+            },
+            message: {
+                conversation: req.body.textMessage.text
+            }
+        } : undefined;
+
+        const apiConfig = {
+            //number: {{groupJid}}
+            number: req.body.number,
+            options: {
+                delay: gerarDelay(),
+                presence: req.body.options.presence,
+                linkPreview: req.body.options.linkPreview,
+            },
+            textMessage: {
+                text: req.body.textMessage.text
+            }
+        };
+
+        axios.post(apiUrl, apiConfig, { headers })
+        .then(response => {
+            res.status(201).send(response.data);
+        })
+        .catch(error => {
+            console.log(error)
             res.status(500).send(error.response.data);
         });
     };
@@ -77,6 +113,55 @@ export class SendMessageController {
         })
         .catch(error => {
             res.status(500).send(error.response.data);
+        });
+    };
+
+    postsendImageMediaBase64 (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+        const apiUrl = urlBase+urlCategoriarequest+'sendMedia/'+req.params.instance;
+    
+        const apiConfig = {
+            //number: "{{remoteJid}}",
+            number: req.body.number,
+            options: {
+                delay: req.body.options.delay,
+                presence: req.body.options.presence
+            },
+            mediaMessage: {
+                mediatype: req.body.mediaMessage.mediatype,
+                caption: req.body.mediaMessage.caption,
+                media: req.body.mediaMessage.media,
+            }
+        }
+        axios.post(apiUrl, apiConfig, { headers })
+        .then(response => {
+            res.status(201).send(response.data);
+        })
+        .catch(error => {
+            res.status(500).send(error.message);
+        });
+    };
+
+    postsendAudioVoiceBase64 (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+        const apiUrl = urlBase+urlCategoriarequest+'sendWhatsAppAudio/'+req.params.instance;
+    
+        const apiConfig = {
+            //number: "{{remoteJid}}",
+            number: req.body.number,
+            options: {
+                delay: req.body.options.delay,
+                presence: req.body.options.presence,
+                encoding: true
+            },
+            audioMessage: {
+                audio: req.body.audioBase64,
+            }
+        }
+        axios.post(apiUrl, apiConfig, { headers })
+        .then(response => {
+            res.status(201).send(response.data);
+        })
+        .catch(error => {
+            res.status(500).send(error.message);
         });
     };
    
