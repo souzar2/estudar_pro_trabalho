@@ -1,6 +1,9 @@
+import { Chat } from "../src/entity/Chat";
 
 export class ChatModel {
     remoteJid: string | undefined;
+    instance: string | undefined;
+    chatWith: string | undefined;
     fromMe: boolean | undefined;
     id: string | undefined;
     pushName: string | undefined;
@@ -19,12 +22,12 @@ export class ChatModel {
         }
     }
 
-    static formatMsgs(msg: any[]) {
-        return msg.map((msg) => this.formatPorTipo(msg));
+    static formatarMensagens(msg: any[]) {
+        return msg.map((msg) => this.formatarMensagem(msg));
     }
 
-    private static formatPorTipo(msg: any) : ChatModel {
-        
+    public static formatarMensagem(msg: any): ChatModel {
+
         let model = this.formatBase(msg);
 
         switch (model.messageType) {
@@ -41,11 +44,11 @@ export class ChatModel {
                 this.fromStickerMessageFormat(model, msg);
                 break;
             case "audioMessage":
-                    this.fromAudioFormat(model, msg);
-                    break;
+                this.fromAudioFormat(model, msg);
+                break;
             case "locationMessage":
-                    this.fromLocationFormat(model, msg);
-                    break;
+                this.fromLocationFormat(model, msg);
+                break;
             case "videoMessage":
                 model.messageType = 'video';
                 model.thumb = 'data:image/jpg;base64,' + msg.message.videoMessage.jpegThumbnail;
@@ -57,13 +60,30 @@ export class ChatModel {
         return model;
     }
 
+    public static conveterPadraoBanco(msg: ChatModel){
+        const dataChat = {
+        remoteJid: msg.remoteJid,
+        fromMe: msg.fromMe,
+        id: msg.id,
+        pushName: msg.pushName,
+        text: msg.text,
+        messageType: msg.messageType,
+        messageTimestamp: new Date(msg.messageTimestamp*1000).toISOString(),
+        thumb: msg.thumb,
+        chatWith: msg.chatWith,
+        instance: msg.instance,
+        }
+
+        return dataChat
+    }
+   
     private static getText(): ChatModel {
         return new ChatModel();
     }
 
     private static fromImageMessageFormat(model: ChatModel, toFormat: any) {
-            model.text = toFormat.message.caption;
-            model.thumb = 'data:image/jpg;base64,' + toFormat.message.imageMessage.jpegThumbnail;
+        model.text = toFormat.message.caption;
+        model.thumb = 'data:image/jpg;base64,' + toFormat.message.imageMessage.jpegThumbnail;
     }
 
     private static fromStickerMessageFormat(model: ChatModel, toFormat: any) {
@@ -79,13 +99,16 @@ export class ChatModel {
     }
 
     private static formatBase(msg: any): ChatModel {
+
         const model: ChatModel = new ChatModel({
             remoteJid: msg.key.remoteJid,
+            chatWith: msg.key.remoteJid.substring(0, msg.key.remoteJid.indexOf("@")),
             fromMe: msg.key.fromMe,
             id: msg.key.id,
             pushName: msg.pushName,
             messageType: msg.messageType,
             message: msg.message,
+           // messageTimestamp: new Date(msg.messageTimestamp*1000).toISOString(),
             messageTimestamp: msg.messageTimestamp,
         });
 

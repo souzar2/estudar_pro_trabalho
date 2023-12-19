@@ -11,7 +11,7 @@ export class Mensagem{
     texto_mensagem: string
 
     @CreateDateColumn({ type: "timestamp without time zone", default: () => "CURRENT_TIMESTAMP" })
-    data_envio: string;
+    data_envio: Date;
 
     @Column()
     remetente_id: string

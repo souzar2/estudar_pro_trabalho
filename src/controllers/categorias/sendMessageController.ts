@@ -2,6 +2,8 @@ import { NextFunction, Response, Router } from "express";
 import { TypedRequestBody, headers,  gerarDelay, urlBase } from "../common/controller";
 
 import express = require("express")
+import { ChatModel } from "../../../models/chat.model";
+import { Chat } from "../../entity/Chat";
 const axios = require('axios');
 
 var urlCategoriarequest = 'message/'
@@ -9,7 +11,8 @@ var urlCategoriarequest = 'message/'
 export class SendMessageController {
     //Send Message Controller
     postSendMessageText (req: TypedRequestBody<any>, res: Response) {
-        const apiUrl = urlBase+urlCategoriarequest+'sendText/'+req.params.instance;
+        const inst = req.params.instance
+        const apiUrl = urlBase+urlCategoriarequest+'sendText/'+inst;
 
         let quoted = req.body.respondendo != undefined ?  {
             key: {
@@ -33,21 +36,39 @@ export class SendMessageController {
                 text: req.body.textMessage.text
             }
         };
-
+            
         axios.post(apiUrl, apiConfig, { headers })
         .then(response => {
+            const chat = new ChatModel();
+            chat.remoteJid = response.data.key.remoteJid;
+            chat.instance = inst;
+            chat.fromMe = response.data.key.fromMe;
+            chat.id = response.data.key.id;
+            chat.pushName = "";
+            chat.message = response.data.message;
+            chat.text = apiConfig.textMessage.text;
+            chat.messageType = "conversation";
+            chat.chatWith = (response.data.key.remoteJid).replace("@s.whatsapp.net", "")
+            chat.messageTimestamp = response.data.messageTimestamp;
+            chat.thumb = undefined;
+
+            const dataChat = ChatModel.conveterPadraoBanco(chat)
+            let instance = new Chat();
+            instance.save(dataChat);
             res.status(201).send(response.data);
+            
         })
         .catch(error => {
             console.log(error)
             res.status(500).send(error.response.data);
-        });
+        });/**/
     };
 
     postSendManyMessageText (req: TypedRequestBody<any>, res: Response) {
+        const inst = req.params.instance;
         const apiUrl = urlBase+urlCategoriarequest+'sendText/'+req.params.instance;
 
-        let quoted = req.body.respondendo != undefined ?  {
+        /*let quoted = req.body.respondendo != undefined ?  {
             key: {
                 remoteJid: req.body.number,
                 fromMe: true,
@@ -55,7 +76,7 @@ export class SendMessageController {
             message: {
                 conversation: req.body.textMessage.text
             }
-        } : undefined;
+        } : undefined;*/
 
         const apiConfig = {
             //number: {{groupJid}}
@@ -72,6 +93,24 @@ export class SendMessageController {
 
         axios.post(apiUrl, apiConfig, { headers })
         .then(response => {
+
+            const chat = new ChatModel();
+            chat.remoteJid = response.data.key.remoteJid;
+            chat.instance = inst;
+            chat.fromMe = response.data.key.fromMe;
+            chat.id = response.data.key.id;
+            chat.pushName = "";
+            chat.message = response.data.message;
+            chat.text = apiConfig.textMessage.text;
+            chat.messageType = "conversation";
+            chat.chatWith = (response.data.key.remoteJid).replace("@s.whatsapp.net", "")
+            chat.messageTimestamp = response.data.messageTimestamp;
+            chat.thumb = undefined;
+
+            const dataChat = ChatModel.conveterPadraoBanco(chat)
+            let instance = new Chat();
+            instance.save(dataChat);
+            res.status(201).send(response.data);
             res.status(201).send(response.data);
         })
         .catch(error => {
@@ -117,6 +156,7 @@ export class SendMessageController {
     };
 
     postsendImageMediaBase64 (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+        const inst = req.params.instance
         const apiUrl = urlBase+urlCategoriarequest+'sendMedia/'+req.params.instance;
     
         const apiConfig = {
@@ -134,6 +174,23 @@ export class SendMessageController {
         }
         axios.post(apiUrl, apiConfig, { headers })
         .then(response => {
+            const chat = new ChatModel();
+            chat.remoteJid = response.data.key.remoteJid;
+            chat.instance = inst;
+            chat.fromMe = response.data.key.fromMe;
+            chat.id = response.data.key.id;
+            chat.pushName = "";
+            chat.message = response.data.message;
+            chat.text = undefined;
+            chat.messageType = "imageMessage";
+            chat.chatWith = (response.data.key.remoteJid).replace("@s.whatsapp.net", "")
+            chat.messageTimestamp = response.data.messageTimestamp;
+            chat.thumb = undefined;
+
+            const dataChat = ChatModel.conveterPadraoBanco(chat)
+            let instance = new Chat();
+            instance.save(dataChat);
+           
             res.status(201).send(response.data);
         })
         .catch(error => {
@@ -142,6 +199,7 @@ export class SendMessageController {
     };
 
     postsendAudioVoiceBase64 (req: TypedRequestBody<any>, res: Response, next: NextFunction) {
+        const inst = req.params.instance
         const apiUrl = urlBase+urlCategoriarequest+'sendWhatsAppAudio/'+req.params.instance;
     
         const apiConfig = {
@@ -156,8 +214,29 @@ export class SendMessageController {
                 audio: req.body.audioBase64,
             }
         }
+
+        
         axios.post(apiUrl, apiConfig, { headers })
         .then(response => {
+            
+            const chat = new ChatModel();
+            chat.remoteJid = response.data.key.remoteJid;
+            chat.instance = inst;
+            chat.fromMe = response.data.key.fromMe;
+            chat.id = response.data.key.id;
+            chat.pushName = "";
+            chat.message = response.data.message;
+            chat.text = undefined;
+            chat.messageType = "audioMessage";
+            chat.chatWith = (response.data.key.remoteJid).replace("@s.whatsapp.net", "")
+            chat.messageTimestamp = response.data.messageTimestamp;
+            chat.thumb = undefined;
+           
+
+            const dataChat = ChatModel.conveterPadraoBanco(chat)
+            let instance = new Chat();
+            instance.save(dataChat);
+
             res.status(201).send(response.data);
         })
         .catch(error => {

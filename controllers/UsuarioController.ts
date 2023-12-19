@@ -1,7 +1,7 @@
 
 import { TypedRequestBody } from "../src/controllers/common/controller";
 
-import { Usuario } from "../src/entity/Usuario";
+import { Usuario } from "../src/entityVt/Usuario";
 import { NextFunction, Response } from "express";
 import { AppDataSource } from "../src/data-source";
 

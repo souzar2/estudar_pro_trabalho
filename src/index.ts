@@ -7,6 +7,7 @@ import LoginRouter, { LoginController } from "./controllers/loginController";
 import { AppDataSource_vrp } from "./data-souce-vrp";
 import ClientesRouter from "./controllers/contatoClientesController";
 import bodyParser = require("body-parser");
+import webhookRouter from "./controllers/categorias/webhookController";
 
 AppDataSource_vrp.initialize().then(async () => {
     AppDataSource.initialize().then(async () => {
@@ -14,6 +15,7 @@ AppDataSource_vrp.initialize().then(async () => {
         const port = 3000;
         app.use(cors());
         app.use(express.json({limit:'50mb'}));
+        app.use('/newevent', webhookRouter)
         app.use('/login', LoginRouter);
         app.use('/clientes', ClientesRouter);
 

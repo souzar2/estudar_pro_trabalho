@@ -13,21 +13,8 @@ export class contatoClientesController {
         const page: number = req.body.page || 1; 
         const pageSize: number = req.body.pageSize || 0;  
         const skip = (page - 1) * pageSize;
-        var nomePesquisa: string = req.body.pesquisaNome;
+        var pesquisa: string = req.body.pesquisaNome;
 
-
-        /*let result = {};
-
-        
-            totalSize: contatoClientesController.repository.user.count({ 
-                select: ['id', 'nome', 'celular1'],
-                order: { id: "ASC" },
-                skip: skip,
-                take: pageSize,
-                where: {celular1: Not(IsNull()) && Not('')
-            },
-            })*/
-        
         if(pageSize==0){
             contatoClientesController.repository.user.find({ 
                 select: ['id', 'nome', 'celular1'],
@@ -44,9 +31,16 @@ export class contatoClientesController {
             order: { nome: "ASC" },
             skip: skip,
             take: pageSize,
-            where: {celular1: Not(IsNull()) && Not(''),
-                    nome: ILike(`%${nomePesquisa}%`),
-                    },})
+            where: [
+                {
+                    celular1: Not(IsNull()) && Not(''),
+                    nome: ILike(`%${pesquisa}%`)
+                },
+                {
+                    celular1: Not(IsNull()) && Not('') && ILike(`%${pesquisa}%`)
+                }
+            ],
+        })
             .then(u => {
                  res.status(200).send(u);
             }).catch(err => next(err));
