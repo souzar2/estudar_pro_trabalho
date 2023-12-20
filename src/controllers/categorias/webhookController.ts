@@ -68,8 +68,7 @@ export class WebhookController {
             console.log(dataChat);
             
             let instance = new Chat();
-           //instance.save(dataChat);
-
+           instance.save(dataChat);
            
         }
         res.status(200).send();

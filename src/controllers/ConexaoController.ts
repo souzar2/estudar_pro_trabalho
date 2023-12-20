@@ -37,7 +37,7 @@ conexaoRouter.post('/postsendMediaURL/:instance', controllerSendMessage.postsend
 //Chat Controller
 conexaoRouter.post('/isWhatsApp/:instance', controllerChat.postIsWhatsApp)
 conexaoRouter.post('/getmessages/:instance', controllerChat.postfindMessages)
-conexaoRouter.get('/getSavedMessages', controllerChat.FindMessagesFromDB)
+conexaoRouter.post('/getSavedMessages', controllerChat.FindMessagesFromDB)
 conexaoRouter.post('/getBase64MediaMessage/:instance', controllerChat.postBase64MediaMessage)
 
 //WebHook

@@ -50,8 +50,8 @@ export class ChatModel {
                 this.fromLocationFormat(model, msg);
                 break;
             case "videoMessage":
-                model.messageType = 'video';
-                model.thumb = 'data:image/jpg;base64,' + msg.message.videoMessage.jpegThumbnail;
+                this.fromVideoFormat(model, msg);
+                
                 //this.getImagemBase64FromId(msg);
                 break;
             default: msg.text = undefined;
@@ -91,6 +91,11 @@ export class ChatModel {
     }
 
     private static fromAudioFormat(model: ChatModel, toFormat: any) {
+        model.text = ''
+    }
+
+    private static fromVideoFormat(model: ChatModel, toFormat: any) {
+        model.thumb = 'data:image/jpg;base64,' + toFormat.message.videoMessage.jpegThumbnail;
         model.text = ''
     }
 

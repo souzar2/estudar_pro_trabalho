@@ -8,6 +8,7 @@ import { AppDataSource_vrp } from "./data-souce-vrp";
 import ClientesRouter from "./controllers/contatoClientesController";
 import bodyParser = require("body-parser");
 import webhookRouter from "./controllers/categorias/webhookController";
+import chatRouter from "./controllers/categorias/chatController";
 
 AppDataSource_vrp.initialize().then(async () => {
     AppDataSource.initialize().then(async () => {
@@ -18,6 +19,7 @@ AppDataSource_vrp.initialize().then(async () => {
         app.use('/newevent', webhookRouter)
         app.use('/login', LoginRouter);
         app.use('/clientes', ClientesRouter);
+        app.use('/getSavedMessages', chatRouter);
 
         app.use(new LoginController().verifyToken, router);
 
